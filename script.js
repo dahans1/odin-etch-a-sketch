@@ -1,12 +1,15 @@
 function getRandomColor() {
-    const hexValues = '0123456789ABCDEF';
-    let color = '#';
+    let colors = [];
 
-    for (let i = 0; i < 6; i++) {
-        color += hexValues[Math.floor(Math.random() * 16)];
+    for (let i = 0; i < 3; i++) {
+        colors.push(Math.floor(Math.random() * 255));
     }
 
-    return color;
+    return colors;
+}
+
+function toRGB(colors) {
+    return `rgb(${colors[0]}, ${colors[1]}, ${colors[2]})`;
 }
 
 function createGrid(size) {
@@ -24,10 +27,15 @@ function createGrid(size) {
 
             square.dataset.colored = "false";
             square.addEventListener("mouseenter", () => {
-                console.log(square.style.backgroundColor);
                 if (square.dataset.colored === 'false') {
-                    square.style.backgroundColor = getRandomColor();
+                    square.dataset.color = getRandomColor();
+                    square.style.backgroundColor = toRGB(square.dataset.color.split(','));
                     square.dataset.colored = "true";
+                } else { // darken the square by 10%
+                    let colors = square.dataset.color.split(',');
+                    colors = colors.map((color) => Math.floor(color * 0.9));
+                    square.dataset.color = colors;
+                    square.style.backgroundColor = toRGB(colors);
                 }
             });
             
