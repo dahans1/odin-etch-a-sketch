@@ -30,12 +30,17 @@ function createGrid(size) {
                 if (square.dataset.colored === 'false') {
                     square.dataset.color = getRandomColor();
                     square.style.backgroundColor = toRGB(square.dataset.color.split(','));
+                    square.style.opacity = .10;
                     square.dataset.colored = "true";
                 } else { // darken the square by 10%
-                    let colors = square.dataset.color.split(',');
-                    colors = colors.map((color) => Math.floor(color * 0.9));
-                    square.dataset.color = colors;
-                    square.style.backgroundColor = toRGB(colors);
+                    let opacity = +window.getComputedStyle(square).opacity;
+                    if (opacity < 1) {
+                        square.style.opacity = opacity + .10;
+                    }
+                    // let colors = square.dataset.color.split(',');
+                    // colors = colors.map((color) => Math.floor(color * 0.9));
+                    // square.dataset.color = colors;
+                    // square.style.backgroundColor = toRGB(colors);
                 }
             });
             
