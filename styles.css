@@ -1,3 +1,16 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    width: 960px;
+}
+
+#size-btn {
+    padding: 10px;
+    color: black;
+    background-color: coral;
+}
+
 #container {
     display: flex;
     justify-content: center;

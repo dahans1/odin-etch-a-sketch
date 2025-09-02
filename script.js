@@ -1,6 +1,6 @@
 function getRandomColor() {
     const hexValues = '0123456789ABCDEF';
-    var color = '#';
+    let color = '#';
 
     for (let i = 0; i < 6; i++) {
         color += hexValues[Math.floor(Math.random() * 16)];
@@ -10,7 +10,7 @@ function getRandomColor() {
 }
 
 function createGrid(size) {
-    const container = document.querySelector('#container')
+    const container = document.querySelector('#container');
     for (let i = 0; i < size; i++) {
         const innerContainer = document.createElement('div');
         for (let j = 0; j < size; j++) {
@@ -18,7 +18,7 @@ function createGrid(size) {
             square.classList.add("square");
 
             // calculate space (960 px wide in total)
-            const space = Math.floor(960 / size);
+            const space = 960 / size;
             square.style.width = `${space}px`;
             square.style.height = `${space}px`;
 
@@ -37,4 +37,18 @@ function createGrid(size) {
     }
 }
 
-createGrid(32);
+let size = 16;
+const button = document.querySelector('#size-btn');
+button.addEventListener('click', () => {
+    size = prompt("Enter a new size for the grid:", 16);
+
+    while (size > 100) {
+        alert("Size is limited to a maximum of 100.")
+        size = prompt("Enter a new size for the grid:", 16);
+    }
+    const container = document.querySelector('#container');
+    container.innerHTML = '';
+    createGrid(size);
+});
+
+createGrid(size);
